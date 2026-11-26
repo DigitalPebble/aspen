@@ -11,7 +11,7 @@ repo="https://github.com/DigitalPebble/aspen"
 raw="https://raw.githubusercontent.com/DigitalPebble/aspen/main"
 
 mkdir -p "$docs/assets"
-cp "$root/resources/brand/aspen-icon.svg" "$docs/assets/"
+cp "$root/resources/brand/seasons/aspen-icon-autumn.svg" "$docs/assets/aspen-icon.svg"
 
 {
   printf -- '---\nlayout: page\ntitle: Methodology\npermalink: /methodology/\n---\n{%% raw %%}\n'
