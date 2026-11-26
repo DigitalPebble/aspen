@@ -13,6 +13,7 @@ layout_class: home
     </p>
     <p class="actions">
       <a class="button primary" href="#setup">Add it to a workflow</a>
+      <a class="button" href="{{ '/simulator/' | relative_url }}">Try the simulator</a>
       <a class="button" href="{{ '/methodology/' | relative_url }}">Read the methodology</a>
     </p>
   </div>
@@ -27,6 +28,7 @@ layout_class: home
     <li><strong>Carbon</strong><span>in grams of CO<sub>2</sub> equivalent, using the average carbon intensity of the US grid</span></li>
     <li><strong>Water</strong><span>in litres, for data centre cooling and for generating the electricity</span></li>
   </ul>
+  <p>To get a feel for the figures, enter a number of minutes in the <a href="{{ '/simulator/' | relative_url }}">simulator</a>.</p>
   <p>It writes them to a JSON report, a markdown summary in the job page (totals per repository, per workflow and per runner) and an optional badge for your README.</p>
   <p class="note">Aspen estimates from durations and runner types; it does not measure energy on the runner. For measured figures per step, look at <a href="https://github.com/green-coding-solutions/eco-ci-energy-estimation/">eco-ci-energy-estimation</a>.</p>
 </section>
