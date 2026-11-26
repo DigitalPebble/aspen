@@ -1,4 +1,4 @@
-<img src="resources/brand/aspen-icon.svg" width="96" alt="aspen">
+<img src="resources/brand/seasons/aspen-icon-autumn.svg" width="96" alt="aspen">
 
 # Aspen - GitHub Actions Carbon Estimator
 
