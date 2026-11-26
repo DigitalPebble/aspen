@@ -33,6 +33,8 @@ Data centres use a growing share of the world's electricity, and a large part of
 | Period | last `days` days, at most 5,000 runs | last `days` days, or any year, month or day via `--year`, `--month`, `--day` (CLI only) |
 | Coverage | the repository the token belongs to | the whole organisation |
 | Token | built-in `GITHUB_TOKEN` | organisation `Administration` (read) |
+| API requests | one per workflow run, plus one per 100 runs listed | one per calendar month in the period |
+| Speed | tens of seconds for a few hundred runs, rate limited above roughly 950 runs with the built-in token | one or two HTTP calls |
 | Badge | ![CI CO2eq](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/DigitalPebble/aspen/badges/badge.json) | ![CI CO2eq billing](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/DigitalPebble/aspen/badges/badge-billing.json) |
 
 `jobs` is an approximation: durations are rounded up and runner types are guessed from labels such as `ubuntu-latest` or `windows-latest`. `billing` is the data GitHub invoices, so it is the more precise of the two and the only one covering storage and the whole organisation, at the cost of a powerful token. Only `jobs` can tell you which workflow the emissions come from.

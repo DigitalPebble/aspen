@@ -45,6 +45,7 @@ layout_class: home
         <li>Breaks the emissions down per workflow file</li>
         <li>Durations are rounded up to whole minutes and the runner type is inferred from labels such as <code>ubuntu-latest</code></li>
         <li>Storage, self hosted and larger runners are not estimated</li>
+        <li>Makes one API request per workflow run, so it is slower and the built-in token runs out of requests above roughly 950 runs</li>
       </ul>
       <p class="card-foot">Start here. The badge is <strong>silver</strong>.</p>
     </div>
@@ -55,6 +56,7 @@ layout_class: home
         <li>Minutes as billed and runner types from the billing SKU, so it is the more precise of the two</li>
         <li>Includes Actions and Packages storage</li>
         <li>No per workflow breakdown, as the billing API does not expose it</li>
+        <li>Makes one API request per calendar month in the period, so it finishes in seconds</li>
         <li>Needs an organisation token with <code>Administration</code> (read), which can see the billing of every repository</li>
       </ul>
       <p class="card-foot">In a workflow, the report is filtered to the current repository. Run the <a href="https://github.com/DigitalPebble/aspen#3-cli-outside-github-actions">command line tool</a> to cover the whole organisation. The badge is <strong>gold</strong>.</p>
