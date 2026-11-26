@@ -18,6 +18,7 @@
       <nav>
         <a href="{{ '/#how' | relative_url }}">How it works</a>
         <a href="{{ '/#setup' | relative_url }}">Set up</a>
+        <a href="{{ '/simulator/' | relative_url }}"{% if page.url == '/simulator/' %} aria-current="page"{% endif %}>Simulator</a>
         <a href="{{ '/methodology/' | relative_url }}"{% if page.url == '/methodology/' %} aria-current="page"{% endif %}>Methodology</a>
         <a href="https://github.com/{{ site.repository }}">GitHub</a>
         <a href="https://github.com/sponsors/DigitalPebble">Sponsor</a>
