@@ -515,7 +515,7 @@ fn collect_jobs_usage(token: &str, owner: &str, repo: &str, days: u32) -> Result
                     Ok(items) => {
                         results.lock().unwrap()[i] = Some(items);
                         let n = done.fetch_add(1, Ordering::Relaxed) + 1;
-                        if n % step == 0 || n == total {
+                        if n.is_multiple_of(step) || n == total {
                             eprintln!("Fetched jobs for {}/{} runs", n, total);
                         }
                     }
