@@ -78,13 +78,15 @@ pub fn parse_repository(repo: &str) -> anyhow::Result<(String, String)> {
 }
 
 impl ActionsBill {
-    /// Keeps only the usage items of the given repository (case-insensitive).
+    /// Keeps only the usage items of the given repository (case-insensitive). Items
+    /// without an organisation, as in the exports of personal accounts, match on the
+    /// repository name alone.
     pub fn retain_repository(&mut self, owner: &str, name: &str) {
         self.usage_items.retain(|i| {
             i.repository_name.eq_ignore_ascii_case(name)
                 && i.organization_name
                     .as_deref()
-                    .is_some_and(|o| o.eq_ignore_ascii_case(owner))
+                    .is_none_or(|o| o.eq_ignore_ascii_case(owner))
         });
     }
 

@@ -119,6 +119,21 @@ mod repository_filter {
     }
 
     #[test]
+    fn items_without_organization_match_on_repository_name() {
+        let json = r#"{"usageItems":[
+            {"date":"2025-01-01","product":"actions","sku":"actions_linux","quantity":1.0,
+             "unitType":"minutes","pricePerUnit":0.0,"grossAmount":0.0,"discountAmount":0.0,
+             "netAmount":0.0,"repositoryName":"aspen"},
+            {"date":"2025-01-01","product":"actions","sku":"actions_linux","quantity":1.0,
+             "unitType":"minutes","pricePerUnit":0.0,"grossAmount":0.0,"discountAmount":0.0,
+             "netAmount":0.0,"repositoryName":"other"}]}"#;
+        let mut b = ActionsBill::from_json(json).unwrap();
+        b.retain_repository("jnioche", "aspen");
+        assert_eq!(b.usage_items.len(), 1);
+        assert_eq!(b.usage_items[0].repository_name, "aspen");
+    }
+
+    #[test]
     fn keeps_only_the_given_repository() {
         let mut b = ActionsBill::from_json(&bill()).unwrap();
         b.retain_repository("DigitalPebble", "public-repo");
