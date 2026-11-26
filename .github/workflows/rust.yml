@@ -6,11 +6,17 @@ on:
     paths-ignore:
       - 'README.md'
       - '.github/**'
+      - 'docs/**'
+      - 'METHODOLOGY.md'
+      - 'scripts/build-site.sh'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
       - 'README.md'
       - '.github/**'
+      - 'docs/**'
+      - 'METHODOLOGY.md'
+      - 'scripts/build-site.sh'
 
 env:
   CARGO_TERM_COLOR: always
