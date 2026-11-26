@@ -11,7 +11,7 @@ use chrono::Datelike;
 use clap::Parser;
 use model::ActionsBill;
 use std::fs::{self, OpenOptions};
-use std::io::{Read, Write};
+use std::io::{IsTerminal, Read, Write};
 use std::path::Path;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::Mutex;
@@ -101,10 +101,14 @@ fn append_to_file(path: &str, content: &str) -> Result<()> {
 fn main() -> Result<()> {
     let cli = Cli::parse();
 
+    // Filter mode: billing JSON piped on stdin, with nothing saying where else to get
+    // the data from. The token is not part of the check, since it lives in the
+    // environment and is often exported in the shell.
+    let unset = |v: &Option<String>| v.as_deref().is_none_or(str::is_empty);
     let filter_mode = cli.file.is_none()
-        && cli.token.is_none()
-        && cli.organization.is_none()
-        && cli.repository.is_none();
+        && unset(&cli.organization)
+        && unset(&cli.repository)
+        && !std::io::stdin().is_terminal();
 
     let repo = cli
         .repository
