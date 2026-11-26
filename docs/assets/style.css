@@ -92,7 +92,6 @@ a:hover { color: var(--accent-strong); }
 }
 .site-header nav a:hover,
 .site-header nav a[aria-current="page"] { color: var(--text); }
-
 /* Hero */
 .hero {
   text-align: center;
