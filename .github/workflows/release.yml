@@ -90,7 +90,7 @@ jobs:
     needs: build-binaries
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write # draft releases are only visible with write access
       id-token: write
       attestations: write
     steps:
