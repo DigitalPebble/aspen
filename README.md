@@ -91,7 +91,7 @@ The JSON report is written to the runner and discarded when the job ends. To kee
 steps:
   - uses: DigitalPebble/aspen@v1
     id: aspen
-  - uses: actions/upload-artifact@v4
+  - uses: actions/upload-artifact@v7
     with:
       name: carbon-estimate
       path: ${{ steps.aspen.outputs.report-path }}
