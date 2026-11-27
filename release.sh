@@ -109,6 +109,13 @@ git push origin --delete "$BRANCH" 2>/dev/null || true
 
 REPO=$(gh repo view --json nameWithOwner --jq .nameWithOwner)
 
+# Called when the release must not go out: say so and how to remove the draft and the tag
+abort_draft() {
+  echo "$1, do not publish the draft"
+  echo "Remove it with: gh release delete $TAG --cleanup-tag --yes"
+  exit 1
+}
+
 echo "--- Waiting for the release workflow ---"
 RUN_ID=""
 for _ in $(seq 1 30); do
@@ -117,7 +124,7 @@ for _ in $(seq 1 30); do
   sleep 5
 done
 [ -n "$RUN_ID" ] || { echo "No release.yml run found for $TAG"; exit 1; }
-gh run watch "$RUN_ID" --exit-status || { echo "The release workflow failed, do not publish the draft"; exit 1; }
+gh run watch "$RUN_ID" --exit-status || abort_draft "The release workflow failed"
 
 echo "--- Verifying the attestations of the draft release ---"
 DIST=$(mktemp -d)
@@ -126,11 +133,11 @@ COUNT=0
 for f in "$DIST"/aspen-*; do
   case "$f" in *.sha256) continue ;; esac
   gh attestation verify "$f" --repo "$REPO" >/dev/null \
-    || { echo "Attestation verification failed for $(basename "$f"), do not publish the draft"; exit 1; }
+    || abort_draft "Attestation verification failed for $(basename "$f")"
   echo "OK $(basename "$f")"
   COUNT=$((COUNT + 1))
 done
-[ "$COUNT" -gt 0 ] || { echo "No archives found in the draft release"; exit 1; }
+[ "$COUNT" -gt 0 ] || abort_draft "No archives found in the draft release"
 
 echo ""
 echo "Done! Tag $TAG pushed and $COUNT archives verified."
